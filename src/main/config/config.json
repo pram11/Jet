@@ -1,0 +1,21 @@
+{
+  "server": "https://bsky.social",
+  "users": [
+    {
+      "handle": "@",
+      "name": "Bsky",
+      "key": "temp"
+    }
+  ],
+  "key-bindings": {
+    "next": ["j", "down"],
+    "prev": ["k", "up"],
+    "reply": ["r"],
+    "new-post": ["n", "enter"],
+    "next-tab": ["tab"],
+    "prev-tab": ["shift+tab"]
+  },
+  "user-config": {
+    "language": null
+  }
+}

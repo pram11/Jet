@@ -1,0 +1,7 @@
+[
+  { "key": "jet", "value": "Jet" },
+  { "key": "jet-label", "value": "a bluesky client" },
+
+  { "key": "signin-title", "value": "Sign in" },
+  { "key": "signin-button", "value": "Sign in" }
+]

@@ -1,0 +1,95 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+body {
+  position: relative;
+  color: black;
+  height: 100vh;
+  background: white;
+  font-family: sans-serif;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li {
+  list-style: none;
+}
+#root {
+  width: 500px;
+  height: 500px;
+}
+.signin-submit {
+  background-color: #0074d9;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.signin-submit:hover {
+  background-color: #1e90ff;
+}
+
+.signin-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.jet-title {
+  font-size: 52px;
+  font-weight: 600;
+  color: #0074d9;
+  margin-bottom: 8px;
+}
+
+.jet-wrapper {
+  border-bottom: 16px;
+}
+.signin-input-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* Label styles */
+label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0074d9;
+  margin-bottom: 5px;
+}
+
+/* Input styles */
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #0074d9;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+/* Input focus styles */
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus {
+  outline: none;
+  border-color: #1e90ff;
+  box-shadow: 0 0 10px #1e90ff;
+}
