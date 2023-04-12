@@ -27,10 +27,9 @@ const getConfigFile = async () => {
 };
 const getTranslation = (language: string) => {
   async function temp(language: string) {
-    const translatedRequest = await ipcRenderer.sendMessage(
-      'getTranslatedData',
-      [{ name: 'getTranslatedData', arg: language }]
-    );
+    const translatedRequest = ipcRenderer.sendMessage('getTranslatedData', [
+      { name: 'getTranslatedData', arg: language },
+    ]);
     const translatedData = await new Promise((resolve, reject) => {
       ipcRenderer.on('getTranslatedData', (event, arg) => {
         resolve({ event: event, arg: arg });
@@ -40,6 +39,7 @@ const getTranslation = (language: string) => {
   }
   return temp(language);
 };
+
 const StartUp = () => {
   const navigate = useNavigate();
   const [languageSelectModal, setLanguageSelectModal] = useState(false);
@@ -74,10 +74,12 @@ const StartUp = () => {
     serverStatus();
   }, []);
 
-  const onSelectLanguage = async (language: string) => {
+  const onSelectLanguage = async (language: any) => {
     console.log('onSelectLanguage:', language);
     setLanguageSelectModal(false);
     const translations = await getTranslation(language);
+    console.log('translations:', translations);
+
     setTranslation(toObject(translations['event']['data']));
   }; //
   const toObject = (arr: any) => {

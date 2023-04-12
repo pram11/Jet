@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+const ipcRenderer = window.electron.ipcRenderer;
+
 const SignInForm: React.FC<SignInFormProps> = (props: SignInFormProps) => {
   // id and password are the state variables
   // setID and setPassword are the functions that update the state variables
@@ -20,9 +22,30 @@ const SignInForm: React.FC<SignInFormProps> = (props: SignInFormProps) => {
     setPassword(event.target.value);
   };
 
+  const signIn = async (handle: string, password: string) => {
+    const request = await ipcRenderer.sendMessage('serverRequest', [
+      { name: 'signIn', args: [handle, password] },
+    ]);
+    return new Promise((resolve, reject) => {
+      ipcRenderer.on('serverRequest', (event, arg) => {
+        resolve({ event: event, arg: arg });
+      });
+    });
+  };
+
+  const onSubmit = async (handle: string, password: string) => {
+    const response = await signIn(handle, password);
+    console.log('response:', response);
+    return response;
+  };
+
   // handleSubmit is a function that is called when the form is submitted
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(event.currentTarget);
+    const handle: string = event.currentTarget.handle.value;
+    const password: string = event.currentTarget.password.value;
+    const response = onSubmit(handle, password);
     setLoading(true);
     setError('');
   };
@@ -42,6 +65,7 @@ const SignInForm: React.FC<SignInFormProps> = (props: SignInFormProps) => {
               className="signin-input"
               id="sign-in-handle"
               type="text"
+              name="handle"
               value={id}
               onChange={handleIDChange}
             />
@@ -56,6 +80,7 @@ const SignInForm: React.FC<SignInFormProps> = (props: SignInFormProps) => {
               className="signin-input"
               id="sign-in-password"
               type="password"
+              name="password"
               value={password}
               onChange={handlePasswordChange}
             />

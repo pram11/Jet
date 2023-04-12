@@ -1,6 +1,6 @@
 [
   { "key": "jet", "value": "Jet" },
-  { "key": "jet-label", "value": "a bluesky client" },
+  { "key": "jet-label", "value": "블루스카이 클라이언트" },
   { "key": "signin-title", "value": "로그인" },
   { "key": "signin-button", "value": "로그인" }
 ]

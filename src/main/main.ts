@@ -36,8 +36,14 @@ ipcMain.on('ipc-example', async (event, arg) => {
 });
 
 ipcMain.on('serverRequest', async (event, arg) => {
-  console.log('server Request Message:', arg);
-  switch (arg.name) {
+  console.log('server Request Message:', arg, typeof arg);
+  console.log('arg name: ', arg[0].name);
+  switch (arg[0].name) {
+    case 'signIn':
+      console.log('signIn:', arg);
+      //signinRequest
+      event.reply('serverRequest', 'signIn');
+      break;
     case 'getServerStatus':
       const responseMessage = await getServerStatus();
       event.reply('serverRequest', responseMessage);

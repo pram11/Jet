@@ -29,9 +29,7 @@ const languageSelectModal = (props: any) => {
   };
   useEffect(() => {
     const getLanguagesOptions = async () => {
-      console.log('on getLanguagesOptions');
       const languageData: LanguageData = await getLanguages();
-      console.log('languageData:', languageData);
       const languages = languageData['event']['data'].map((language: any) => {
         return { value: language['code'], label: language['name'] };
       });
@@ -54,7 +52,9 @@ const languageSelectModal = (props: any) => {
             options={languageOptions}
             onChange={selectLanguage}
           />
-          <button onClick={props.onSelect}>select</button>
+          <button onClick={() => props.onSelect(selectedLanguage)}>
+            select
+          </button>
         </div>
       </div>
     </div>
