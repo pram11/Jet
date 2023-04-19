@@ -6,6 +6,7 @@ export type Channels =
   | 'serverRequest'
   | 'getConfiguration'
   | 'getTranslatedData'
+  | 'getTimeline'
   | 'ipc-example'
   | 'getReferenceData';
 

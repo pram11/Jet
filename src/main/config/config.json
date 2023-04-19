@@ -17,5 +17,6 @@
   },
   "user-config": {
     "language": null
-  }
+  },
+  "fallback-language": "en-US"
 }

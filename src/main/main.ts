@@ -19,6 +19,7 @@ import { getServerStatus } from './apis';
 import { getConfigFile } from './utils/file';
 import { getTranslatedData } from './translations';
 import { onRequestReferenceData } from './referenceData';
+import BskyAPI from './apis';
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -28,27 +29,34 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-
-ipcMain.on('ipc-example', async (event, arg) => {
+const api = ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
 });
-
+const bskyAPI = new BskyAPI('https://bsky.social');
 ipcMain.on('serverRequest', async (event, arg) => {
   console.log('server Request Message:', arg, typeof arg);
   console.log('arg name: ', arg[0].name);
+  let responseMessage;
   switch (arg[0].name) {
     case 'signIn':
-      console.log('signIn:', arg);
+      console.log('signIn:', arg[0]);
+      bskyAPI.signIn({ handle: arg[0].args[0], password: arg[0].args[1] });
       //signinRequest
+
       event.reply('serverRequest', 'signIn');
       break;
     case 'getServerStatus':
-      const responseMessage = await getServerStatus();
+      responseMessage = await getServerStatus();
       event.reply('serverRequest', responseMessage);
       break;
-
+    case 'getTimeline':
+      console.log('getTimeline');
+      responseMessage = await bskyAPI.getTimeline();
+      console.log('responseMessage:', responseMessage);
+      event.reply('serverRequest', responseMessage.data);
+      break;
     default:
       console.log('serverRequest:', arg);
       event.reply('serverRequest', 'unknown request');

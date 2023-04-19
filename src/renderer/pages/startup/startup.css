@@ -18,8 +18,8 @@ li {
   list-style: none;
 }
 #root {
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
 }
 .signin-submit {
   background-color: #0074d9;
