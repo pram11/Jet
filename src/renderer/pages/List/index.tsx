@@ -4,6 +4,7 @@ const ipcRenderer = window.electron.ipcRenderer;
 
 const List: React.FC = () => {
   const [timeline, setTimeline] = useState<any>([]);
+  const [selectedPost, setSelectedPost] = useState<any>(0);
 
   const getTimeline: any = async () => {
     const request = await ipcRenderer.sendMessage('serverRequest', [
@@ -31,23 +32,33 @@ const List: React.FC = () => {
 
   return (
     <div>
-      <h1>List</h1>
+      <div className="list-title">list</div>
       <div className="post-list">
-        {timeline.map((item) => (
+        {timeline.map((item, index) => (
           <div className="post-wrapper">
+            {index === selectedPost && (
+              <div className="post-active-wrapper">
+                <div className="post-active"></div>
+              </div>
+            )}
             <div className="post-header">
               <img
                 src={item.post.author.avatar}
                 className="post-avatar-img"
                 alt="none"
               />
-              <div className="post-header-text">
-                <div className="post-header-name">
-                  {item.post.author.displayName}
-                </div>
-              </div>
               <div className="post-body">
-                <div className="post-body-text">{item.post.record.text}</div>
+                <div className="post-header-text">
+                  <div className="post-header-handle">
+                    @{item.post.author.handle}
+                  </div>
+                  <div className="post-header-name">
+                    {item.post.author.displayName}
+                  </div>
+                </div>
+                <div className="post-body-contents">
+                  <div className="post-body-text">{item.post.record.text}</div>
+                </div>
               </div>
             </div>
           </div>

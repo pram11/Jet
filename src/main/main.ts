@@ -20,6 +20,8 @@ import { getConfigFile } from './utils/file';
 import { getTranslatedData } from './translations';
 import { onRequestReferenceData } from './referenceData';
 import BskyAPI from './apis';
+import DB from './db';
+import BookmarkModel from './model';
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -173,8 +175,22 @@ app.on('window-all-closed', () => {
 
 app
   .whenReady()
-  .then(() => {
+  .then(async () => {
     createWindow();
+    const db = DB.getInstance().getDatabase();
+    const bookmarkModel = new BookmarkModel();
+    await bookmarkModel.createBookmark({
+      target_uri: 'test',
+      handle: 'test',
+      comment: 'string',
+      file_uri: 'string',
+      file_name: 'string',
+      file_size: 100,
+      file_type: 'string',
+    });
+    const bookmarks = await bookmarkModel.getAllBookmarks();
+    console.log('bookmarks:', bookmarks);
+
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
