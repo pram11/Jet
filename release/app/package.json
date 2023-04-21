@@ -15,9 +15,12 @@
     "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts"
   },
   "dependencies": {
-    "electron": "^24.1.2",
-    "electron-rebuild": "^3.2.9",
     "node-abi": "^3.40.0",
     "sqlite3": "^5.1.6"
-  }
+  },
+  "devDependencies": {
+    "electron": "^24.1.2",
+    "electron-rebuild": "^3.2.9"
+  },
+  "postinstall": "electron-builder install-app-deps"
 }

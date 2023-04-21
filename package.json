@@ -62,6 +62,7 @@
       }
     ]
   },
+  "postinstall": "electron-builder install-app-deps",
   "jest": {
     "moduleDirectories": [
       "node_modules",
